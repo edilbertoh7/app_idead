@@ -9,8 +9,12 @@ function numeroDecimal(elemento){
     $(elemento).val(val);
 };
 
-function VerMuni(arg) {
-    alert('ok entra'+arg);
+function markchek(arg,clase) {
+    if (arg==1) {
+      $(".marcar").prop('checked',true);
+    }else{
+      $(".marcar").prop('checked',false);
+    }
 }
 /**CALCULO DEL VALOR PARA LA HOJA DE VIDA*/
 function calcularTotalHV(){
@@ -53,6 +57,8 @@ function getCursos(){
     }
 }
 
+/**/
+
 /*CONSULTAR MUNICIPIOS DEPENDIENDO*/
 function getMunicipios(arg){
     var departamento_id = arg;
@@ -83,6 +89,13 @@ function inactiva(arg) {
     $(".activa").prop('disabled', true);
     }
 }
+
+function limpiarcampos(argument) {
+  $(".borrardo").val('');
+  $(".borrardo").prop('checked',false);
+}
+
+/**/
 
 
 /**MODAL PARA APLICACION A CONVOCATORIRAS*/

@@ -17,14 +17,16 @@ include_once($SIH_PATH.'partials/navbar.php');
 			<div class="card">
 				<div class="card-header">
 					Convocatorias
+					<?php if ( ($_SESSION && in_array('23', $ARse)) || ($_SESSION && in_array('all-access', $ARper)) ) {  ?>
 					<a href="<?php echo $PATH_INI ?>views/convocatorias/createcovoc.php" class="btn btn-sm btn-primary float-right">
 						Crear
 					</a>
+				<?php } ?>
 				</div>
 
 				<div class="card-body">
 					<?php include_once($SIH_PATH.'partials/alerts.php');  ?>
-					<table class="table table-striped table-hover table-sm">
+					<table id="idtabla" class="table table-striped table-hover table-sm">
 						<thead class="thead-dark">
 							<tr class="ideadtext">
 								<th>id</th>
@@ -36,7 +38,7 @@ include_once($SIH_PATH.'partials/navbar.php');
 								<?php if ($bandconv ==1) {?>
 									<th>Ver más</th>
 								<?php } ?>
-								<th colspan="7">&nbsp;</th>
+								
 							</tr>
 						</thead>
 						<tbody>
@@ -54,40 +56,29 @@ include_once($SIH_PATH.'partials/navbar.php');
 									<td> <?=$convdata[descripcion]?> </td>
 									<td> <?=$convdata[fecha_inicio]?> </td>
 									<td> <?=$convdata[fecha_finalizacion]?> </td>
-									<td> <?=$convdata[activa] == 1? 'Activa' : 'Terminada'?> </td>
+									<td > <?=$convdata[activa] == 1? 'Activa' : 'Terminada'?> 
 
-									<?php if ($bandconv!=1) {?>
-										<td width="10px">
-											<a href="{{ route('convocatorias.show', $convocatoria->id) }}" 
+									<?php if ($bandconv!=1) {
+										if ( ($_SESSION && in_array('22', $ARse)) || ($_SESSION && in_array('all-access', $ARper)) ) { ?>
+											<a href="#" 
 												class="btn btn-sm btn btn-secondary">
 												Pre-seleccionar
 											</a>
-										</td>
-
-										<td width="10px">
-											<a href="{{ route('evaluacionesAspirantes.index', $convocatoria->id) }}" 
+										<?php } if ( ($_SESSION && in_array('34', $ARse)) || ($_SESSION && in_array('all-access', $ARper)) ) { ?>
+											<a href="#" 
 												class="btn btn-sm btn btn-dark">
 												Evaluar
 											</a>
-										</td>
-
-										<td width="10px">
+										<?php } if ( ($_SESSION && in_array('24', $ARse)) || ($_SESSION && in_array('all-access', $ARper)) ) {  ?>
 											<a class="btn btn-sm btn btn-primary" href='javascript: window.location.href="<?php echo $action ?>"'>
 												Editar
 											</a>
-										</td>
-
-										<td width="10px"></td>
-										<td width="10px">
-											<a href="{{ route('detalleConvocatorias.index', $convocatoria->id) }}" 
+									<?php } if ( ($_SESSION && in_array('26', $ARse)) || ($_SESSION && in_array('all-access', $ARper)) ) {  ?>
+											<a href="#" 
 												class="btn btn-sm btn btn-info">
 												Detalle
 											</a>
-										</td>
-
-										<td width="10px"></td>
-
-										<td width="10px">
+										<?php } if ( ($_SESSION && in_array('36', $ARse)) || ($_SESSION && in_array('all-access', $ARper)) ) {  ?>
 											<a href="#" class="nav-item dropdown">
 												<a id="navbarDropdown" class="dropdown-toggle btn-sm btn  btn btn-warning" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
 													Reportes 
@@ -95,21 +86,23 @@ include_once($SIH_PATH.'partials/navbar.php');
 												</a>
 
 												<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-													<a class="dropdown-item" href="{{ route('convocatorias.report.one', $convocatoria->id) }}"
+													<a class="dropdown-item" href="#"
 														target="_blank">
 														Perfiles Convocatoria
 													</a>
-													<a class="dropdown-item" href="{{ route('convocatorias.report.two', $convocatoria->id) }}"
+													<a class="dropdown-item" href="#"
 														target="_blank">
 														Listado de pre-seleccionados
 													</a>
-													<a class="dropdown-item" href="{{ route('convocatorias.report.three', $convocatoria->id) }}"
+													<a class="dropdown-item" href="#"
 														target="_blank">
 														Resultados finales
 													</a>
 												</div>
 
 											</a>
+											 <?php }
+											  include_once($SIH_PATH.'partials/space.php');  ?>
 										</td>
 									<?php }else{?>
 										<td width="10px">

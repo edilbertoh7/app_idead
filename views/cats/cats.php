@@ -18,14 +18,16 @@ include_once($SIH_PATH.'partials/navbar.php');
             <div class="card">
                 <div class="card-header">
                     CAT
+                    <?php if ( ($_SESSION && in_array('11', $ARse)) || ($_SESSION && in_array('all-access', $ARper)) ) { ?>
                     <a href="<?php echo $PATH_INI ?>views/cats/create.php" class="btn btn-sm btn-primary float-right">
                         Crear
                     </a>
+                <?php } ?>
                 </div>
                 <div class="card-body">
                     <?php include_once($SIH_PATH.'partials/alerts.php');  ?>
                    
-                    <table class="table table-striped table-hover table-sm">
+                    <table id="idtabla" class="table table-striped table-hover table-sm">
                         <thead class="thead-dark">
                             <tr class="ideadtext">
                                 <th>id</th>
@@ -46,15 +48,20 @@ include_once($SIH_PATH.'partials/navbar.php');
                         	$rowdatos = datos(consultasql($campos,$tabla,$join,'consulta',$where));
                         	foreach ($rowdatos as $key => $value) {
                                 $action ="create.php?id=".$value[id];
+                                if ( ($_SESSION && in_array('12', $ARse)) || ($_SESSION && in_array('all-access', $ARper)) ) {
                                 ?>
-                        	<tr class="ideadtext" onclick='javascript: window.location.href="<?php echo $action ?>"' >
+                            <tr class="ideadtext" onclick='javascript: window.location.href="<?php echo $action ?>"' >
+                            <?php }else{ ?>
+                        	<tr class="ideadtext"  >
+                            <?php } ?>
                                 <td> <?=$value[id]?></td>
                                 <td> <?=$value[nombre]?></td>
                                 <td> <?=$value[direccion]?></td>
                                 <td> <?=$value[email]?> </td>
                                 <td> <?=$value[depa]?> </td>
                                 <td> <?=$value[muni]?> </td>
-                                <td> <?=$value[activo] == 1? 'Activo' : 'Inactivo'?> </td>
+                                <td> <?=$value[activo] == 1? 'Activo' : 'Inactivo'?>
+                                 </td>
 
                             </tr>
                            <?php } ?>
@@ -66,5 +73,6 @@ include_once($SIH_PATH.'partials/navbar.php');
         </div>
     </div>
 </div>
+
 
 

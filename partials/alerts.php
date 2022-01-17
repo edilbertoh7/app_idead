@@ -12,10 +12,12 @@
 		</button>
 		<?php echo $_GET[mensaje] ?>
 	</div>
-<?php } ?>
-	<!-- <div class="alert alert-danger">
+<?php } elseif ($_GET[tipomsg] == 'danger') {?>
+
+	<div class="alert alert-danger">
 		<button type="button" class="close" data-dismiss="alert">
 			<span>&times;</span>
 		</button>
-		mensaje
-	</div> -->
+		<?php echo $_GET[mensaje] ?>
+	</div>
+<?php } ?>

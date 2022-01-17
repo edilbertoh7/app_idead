@@ -17,22 +17,23 @@ include_once($SIH_PATH.'partials/navbar.php');
             <div class="card">
                 <div class="card-header">
                     Programas
-                    
+                    <?php if ( ($_SESSION && in_array('15', $ARse)) || ($_SESSION && in_array('all-access', $ARper)) ) { ?>
                     <a href="<?php echo $PATH_INI ?>views/programas/create.php" class="btn btn-sm btn-primary float-right">
                         Crear
                     </a>
+                <?php } ?>
                    
                 </div>
 
                 <div class="card-body">
                     <?php include_once($SIH_PATH.'partials/alerts.php');  ?>
-                    <table class="table table-striped table-hover table-sm">
+                    <table id="idtabla" class="table table-striped table-hover table-sm">
                         <thead class="thead-dark">
                             <tr>
                                 <th>Id</th>
                                 <th>Nombre</th>
                                 <th>Estado</th>
-                                <th colspan="3">&nbsp;</th>
+                               
                             </tr>
                         </thead>
                         <tbody>
@@ -43,17 +44,19 @@ include_once($SIH_PATH.'partials/navbar.php');
                         	foreach ($rowdatos as $value) {
                         		$action ="create.php?id=".$value[id];
                         		?>
-                            <tr class="ideadtext">
-                                <td> <?=$value[id]?> </td>
-                                <td> <?=$value[nombre]?> </td>
-                                <td> <?=$value[activo] == 1? 'Activo' : 'Inactivo'?> </td>
-
-                                    <td width="10px">
+                                <tr class="ideadtext">
+                                    <td> <?=$value[id]?> </td>
+                                    <td> <?=$value[nombre]?> </td>
+                                    <td  > <?=$value[activo] == 1? 'Activo' : 'Inactivo'?> 
+                                    
+                                    <?php if ( ($_SESSION && in_array('16', $ARse)) || ($_SESSION && in_array('all-access', $ARper)) ) { ?>
                                         <a href='javascript: window.location.href="<?php echo $action ?>"'  
-                                        class="btn btn-sm btn btn-success ideadtext">
+                                            class="btn btn-sm btn btn-success  float-right ideadtext">
                                             ver/Editar
                                         </a>
-                                    </td>                                
+                                    <?php } ?>
+                                </td>
+                                
                             </tr>
                             <?php } ?>
                         </tbody>

@@ -17,52 +17,56 @@ include_once($SIH_PATH.'partials/navbar.php');
             <div class="card">
                 <div class="card-header">
                     Usuarios
-                    
-                    <a href="{{ route('users.create') }}" 
+                    <?php if ( ($_SESSION && in_array('3', $ARse)) || ($_SESSION && in_array('all-access', $ARper)) ) {  ?>
+                    <a href="<?php echo $PATH_INI?>views/usuarios/usuacrea.php" 
                     class="btn btn-sm btn-primary float-right">
                         Crear
                     </a>
-                   
+                   <?php } ?>
                 </div>
 
                 <div class="card-body">
                    <?php include_once($SIH_PATH.'partials/alerts.php');  ?>
-                    <table class="table table-striped table-hover table-sm">
+                    <table id="idtabla" class="table table-striped table-hover table-sm">
                         <thead class="thead-dark">
-                            <tr>
+                            <tr class="ideadtext">
                                 <th width="10px">Id</th>
                                 <th>Email</th>
                                 <th>Nombre</th>
-                                <th colspan="2">&nbsp;</th>
+                                <!-- <th colspan="2">&nbsp;</th> -->
                             </tr>
                         </thead>
                         <tbody>
                            <?php 
-                           $campos ="u.id,u.email,d.primer_nombre,d.segundo_nombre,d.primer_apellido,d.segundo_apellido";
-                        	$tabla ="users u";
-                        	$join = "INNER JOIN users_detail d ON(u.id = d.user_id)";
-                        	$rowdatos = datos(consultasql($campos,$tabla,$join,'consulta',$where));
-                        	foreach ($rowdatos as $datauser) {?>
+                           $sqlusua ="SELECT u.id,u.email,d.primer_nombre,d.segundo_nombre,d.primer_apellido,d.segundo_apellido
+                           FROM users u
+                           INNER JOIN users_detail d ON(u.id = d.user_id)
+                           ORDER BY u.id";
+                           $rowdatos = datos($sqlusua);
+                        	foreach ($rowdatos as $datauser) {
+                                $action ="usuacrea.php?id=".$datauser[id];
+                                ?>
 
-                            <tr>
+                            <tr class="ideadtext">
                                 <td> <?=$datauser[id]?> </td>
                                 <td><?=$datauser[email]?></td>
-                                <td> <?=$datauser[primer_nombre]?> <?=$datauser[segundo_nombre]?>  <?=$datauser[primer_apellido]?>  <?=$datauser[segundo_apellido]?> </td>
+                                <td> <?=$datauser[primer_nombre]?> <?=$datauser[segundo_nombre]?>  <?=$datauser[primer_apellido]?>  <?=$datauser[segundo_apellido]?> 
+                                    <?php if ( ($_SESSION && in_array('4', $ARse)) || ($_SESSION && in_array('all-access', $ARper)) ) {  ?>
+                                    <a href='javascript: window.location.href="<?php echo $action ?>"' 
+                                    class="btn btn-sm btn btn-success ideadtext float-right">
+                                        Ver/Editar
+                                    </a>
+                                <?php } ?>
+                            </td>
                                
-                                <td width="10px">
+                               <!--  <td width="10px">
                                     <a href="{{ route('users.show', $user->id) }}" 
-                                    class="btn btn-sm btn btn-primary">
+                                    class="btn btn-sm btn btn-primary ideadtext">
                                         Ver
                                     </a>
-                                </td>
+                                </td> -->
                                 
-                                <td width="10px">
-                                    <a href="{{ route('users.edit', $user->id) }}" 
-                                    class="btn btn-sm btn btn-success">
-                                        Editar
-                                    </a>
-                                </td>
-                               
+                                
                             </tr>
                             <?php } ?>
                         </tbody>
